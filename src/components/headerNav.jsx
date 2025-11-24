@@ -1,11 +1,11 @@
+import { Link } from "react-router-dom";
 const headerNav = () => { 
     return (
-        <nav>
-            <ul className="flex flex-row bg-red-200">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-            </ul>
+        <nav className="flex flex-row bg-red-200 w-3xl">
+            <Link to="/" className="text-2xl button">Home</Link>
+            <Link to="/women">Women</Link>
+            <Link to="/men">Men</Link>
+            <Link to="/about">About</Link>
         </nav>
     )
 }

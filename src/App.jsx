@@ -1,13 +1,18 @@
-import { useState } from 'react'
-import HeaderNav from './components/headerNav.jsx'
-import './App.css'
+import HeaderNav from './components/headerNav.jsx';
+import HomePage from './homePage.jsx';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <HeaderNav />
+      <BrowserRouter>
+        <HeaderNav />
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
+      {/* <p>what</p> */}
     </>
   )
 }
