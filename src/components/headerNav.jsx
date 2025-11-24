@@ -1,13 +1,41 @@
 import { Link } from "react-router-dom";
-const headerNav = () => { 
+const headerNav = () => {
+    const navPages = [
+        {
+            "category": "HOME",
+            "link": "/"
+        },
+        {
+            "category": "MEN",
+            "link": "/men"
+        },
+        {
+            "category": "WOMEN",
+            "link": "/women"
+        },
+        {
+            "category": "ABOUT",
+            "link": "/about"
+        }
+    ]
+
     return (
-        <nav className="flex flex-row bg-red-200 w-3xl">
-            <Link to="/" className="text-2xl button">Home</Link>
-            <Link to="/women">Women</Link>
-            <Link to="/men">Men</Link>
-            <Link to="/about">About</Link>
+        <nav className="flex grow flex-row justify-around items-center h-full">
+            {navPages.map((page) => (
+                <Link
+                    key={page.category}
+                    to={page.link}
+                    className="
+                    h-full
+                    flex items-center justify-center 
+                    p-2
+                    text-lg 
+                    border border-transparent border-b-2 hover:border-b-black"
+                >
+                    {page.category}
+                </Link>
+            ))}
         </nav>
     )
 }
-
 export default headerNav;
