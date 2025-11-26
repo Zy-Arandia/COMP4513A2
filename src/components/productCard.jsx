@@ -7,7 +7,7 @@ const ProductCard = (props) => {
     return (
         <div className="flex flex-col w-full bg-white h-fit min-h-[450px] cursor-pointer
                         transition-transform duration-200 ease-out
-                        hover:scale-105 hover:shadow-lg">
+                        hover:scale-102 hover:shadow-lg">
             {/* Product Image */}
             {/* <img src="" alt="" className=""/> */}
             <div className="w-full bg-blue-200 h-[300px] lg:h-[400px]"></div>
