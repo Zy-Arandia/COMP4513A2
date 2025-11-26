@@ -20,7 +20,7 @@ function App() {
 
       const result = await response.json();
       setProductState(result);
-      setShoppingCartState(result[0]);
+      setShoppingCartState(result);
     } catch (error) {
       console.error(error.message);
     }
