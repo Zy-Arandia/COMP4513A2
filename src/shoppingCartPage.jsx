@@ -1,10 +1,19 @@
 
 import ShoppingCartProduct from "./components/shoppingCartProduct.jsx"
+import { useState, useEffect } from "react";
 
 const ShoppingCartPage = ({ shoppingCartState, setShoppingCartState }) => {
-    // List of products in a shopping cart
-    console.log(shoppingCartState[1]);
-    console.log("^^Cart Page^^");
+
+    const [ cartPrice, setCartPrice ] = useState(0);
+    useEffect(() => {
+        let total = 0;
+        shoppingCartState.forEach(item => {
+            total += item.price;
+            // console.log(item);
+            console.log("wat");
+        });
+        setCartPrice(total);
+    }, [shoppingCartState]);
 
     return (
         <div className="w-screen pt-20 flex flex-col justify-center items-center px-10 ">
@@ -17,14 +26,13 @@ const ShoppingCartPage = ({ shoppingCartState, setShoppingCartState }) => {
                 {/* Shopping Cart list */}
                 <div className="max-w-[1100px] w-full bg-red-200 flex flex-col justify-center">
                     {shoppingCartState.map((product) => {
-                        console.log(product.id);
                         return <ShoppingCartProduct key={product.id} product={product} />
                     })}
                 </div>
                 <div className="w-3xl flex flex-col bg-white h-fit px-10 *:pt-5 *:flex *:justify-between">
                     <div className="">
-                        <h1 class="font-semibold text-2xl">Order Summary</h1>
-                        <h1 class="font-semibold text-2xl">Count</h1>
+                        <h1 className="font-semibold text-2xl">Order Summary</h1>
+                        <h1 className="font-semibold text-2xl">Count: {shoppingCartState.length}</h1>
                     </div>
                     <div className="">
                         <p>Price</p>
@@ -36,7 +44,7 @@ const ShoppingCartPage = ({ shoppingCartState, setShoppingCartState }) => {
                     </div>
                     <div>
                         <p>Order Total</p>
-                        <p>$0.00</p>
+                        <p>${cartPrice || 0.00}</p>
                     </div>
                 </div>
             </div>
