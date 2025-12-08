@@ -8,7 +8,7 @@ import AdminPage from './adminPage.jsx';
 import AboutPage from './aboutPage.jsx';
 import Footer from './components/footer.jsx';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter , Routes, Route } from 'react-router-dom';
 import { useProducts } from "./hooks/useProducts";
 import { useFilters } from "./hooks/useFilters";
 import { useCart } from "./hooks/useCart";
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="min-h-screen w-screen flex flex-col justify-between">
-      <BrowserRouter>
+      <HashRouter >
         <HeaderApp
           shoppingCartState={shoppingCartState}
           isLoggedIn={isLoggedIn}
@@ -119,8 +119,9 @@ function App() {
           />
 
         </Routes>
-        <Footer />
-      </BrowserRouter>
+        
+      </HashRouter >
+      <Footer />
     </div>
   );
 }
