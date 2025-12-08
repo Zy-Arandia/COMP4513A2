@@ -1,16 +1,59 @@
 
 import ShoppingCartProduct from "./components/shoppingCartProduct.jsx"
+import SelectBox from "./components/selectBox.jsx"
 import { useState, useEffect } from "react";
 
-const ShoppingCartPage = ({ shoppingCartState, setShoppingCartState, removeFromCart }) => {
+const ShoppingCartPage = ({ shoppingCartState, removeFromCart }) => {
 
     const [cartPrice, setCartPrice] = useState(0);
+    const [destination, setDestination] = useState("Canada");
+    const [shippingMethod, setShippingMethod] = useState("Standard");
 
-    const taxAmount = cartPrice * 0.05;
+    const [taxAmount, setTaxAmount] = useState(0);
+    const [shippingFee, setShippingFee] = useState(0);
+    const [cartTotal, setCartTotal] = useState(0);
 
-    const shippingFee = 15;
+    const countries = ["Canada", "United States", "International"]
 
-    const cartTotal = cartPrice + taxAmount + shippingFee;
+    const calculateOrderTotals = ({ subtotal, destination, shippingMethod }) => {
+        const taxRate = destination === "Canada" ? 0.05 : 0;
+        const tax = subtotal * taxRate;
+
+        if (subtotal > 500) {
+            return {
+                shippingCost: 0,
+                tax,
+                total: subtotal + tax
+            };
+        }
+
+        const shippingRates = {
+            Standard: {
+                Canada: 10,
+                "United States": 15,
+                International: 20
+            },
+            Express: {
+                Canada: 25,
+                "United States": 25,
+                International: 30
+            },
+            Priority: {
+                Canada: 35,
+                "United States": 50,
+                International: 50
+            }
+        };
+
+        const shippingCost = shippingRates[shippingMethod][destination];
+
+        return {
+            shippingCost,
+            tax,
+            total: subtotal + tax + shippingCost
+        };
+    };
+
 
     useEffect(() => {
         let total = 0;
@@ -22,6 +65,19 @@ const ShoppingCartPage = ({ shoppingCartState, setShoppingCartState, removeFromC
 
         setCartPrice(total);
     }, [shoppingCartState]);
+
+    useEffect(() => {
+        const { tax, shippingCost, total } = calculateOrderTotals({
+            subtotal: cartPrice,
+            destination,
+            shippingMethod
+        });
+
+        setTaxAmount(tax);
+        setShippingFee(shippingCost);
+        setCartTotal(total);
+    }, [cartPrice, destination, shippingMethod]);
+
 
     const totalQuantity = shoppingCartState.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
@@ -42,6 +98,7 @@ const ShoppingCartPage = ({ shoppingCartState, setShoppingCartState, removeFromC
                             removeFromCart={removeFromCart} />
                     })}
                 </div>
+                {/* Cart Info */}
                 <div className="w-3xl flex flex-col bg-white h-fit px-10 *:pt-5 *:flex *:justify-between">
                     <div className="">
                         <h1 className="font-semibold text-2xl">Order Summary</h1>
@@ -61,7 +118,37 @@ const ShoppingCartPage = ({ shoppingCartState, setShoppingCartState, removeFromC
                     </div>
                     <div>
                         <p>Order Total</p>
-                        <p>${cartTotal.toFixed(2) }</p>
+                        <p>${cartTotal.toFixed(2)}</p>
+                    </div>
+                    {/* Shipping options */}
+                    <div className="gap-x-2">
+                        <SelectBox
+                            label="Destination"
+                            value={destination}
+                            onChange={setDestination}
+                            options={["Canada", "United States", "International"]}
+                        />
+
+                        <SelectBox
+                            label="Shipping Method"
+                            value={shippingMethod}
+                            onChange={setShippingMethod}
+                            options={["Standard", "Express", "Priority"]}
+                        />
+
+
+                    </div>
+                    <div className="">
+                        <p className="
+                            flex justify-center items-center
+                            bg-black text-white 
+                            border 
+                            w-full h-12 
+                            cursor-pointer
+                            hover:bg-white hover:text-black"
+                        >
+                            CHECKOUT
+                        </p>
                     </div>
                 </div>
             </div>

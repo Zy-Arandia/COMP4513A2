@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCartProduct = ({ product, removeFromCart }) => {
-    console.log(product.selectedSize);
+
+    const navigate = useNavigate();
+
+    const goToProductPage = () => {
+        navigate(`/product/${product.id}`);
+    };
+
     return (
-        <div className="flex flex-row w-full bg-white mt-3 cursor-pointer">
+        <div className="flex flex-row w-full bg-white mt-3 cursor-pointer" onClick={goToProductPage}>
             {/* Image */}
             <div className="w-[150px] h-[200px] bg-green-100">
             </div>
@@ -19,7 +25,11 @@ const ShoppingCartProduct = ({ product, removeFromCart }) => {
                 <div>${(product.price * product.quantity).toFixed(2)}</div>
                 {/* Quantity */}
                 <div><span className="font-semibold">Quantity: </span>{product.quantity}</div>
-                <p className="mt-4" onClick={() => removeFromCart(product.id, product.selectedSize)}>
+                <p className="mt-4" onClick={(e) => {
+                    e.stopPropagation();
+                    removeFromCart(product.id, product.selectedSize);
+                }}
+                >
                     REMOVE
                 </p>
             </div>

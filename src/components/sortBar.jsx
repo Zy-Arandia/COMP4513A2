@@ -35,7 +35,7 @@ const SortBar = ({ filters, setFilters, sort, setSort, filterOptions }) => {
     ];
 
     return (
-        <div className="flex flex-row gap-x-10 sticky top-12 z-50 bg-red-200 w-3/4 py-2">
+        <div className="flex flex-row gap-x-10 sticky top-12 z-50 bg-gray-100 w-3/4 py-2">
 
             {/* Gender Filter */}
             <FilterPill label="Gender">
