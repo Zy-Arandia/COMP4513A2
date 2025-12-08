@@ -22,7 +22,7 @@ const ShoppingPage = (props) => {
     console.log("SHOPPING PAGE: Products to render:", products);
 
     useEffect(() => {
-        if (!genderRoute) return; // normal /
+        if (!genderRoute) return; // normal 
 
         // Only update if gender is not already selected
         setFilters(prev => ({

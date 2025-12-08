@@ -1,26 +1,27 @@
 import { useState } from "react";
 
-const ShoppingCartProduct = ({ product }) => {
-    // Note, product object can be the exact same as the product from fetch, specific features need to be chosen
-    // console.log(product);
-
+const ShoppingCartProduct = ({ product, removeFromCart }) => {
+    console.log(product.selectedSize);
     return (
-        <div className="flex flex-row w-full bg-blue-200 mt-3 cursor-pointer">
+        <div className="flex flex-row w-full bg-white mt-3 cursor-pointer">
             {/* Image */}
             <div className="w-[150px] h-[200px] bg-green-100">
             </div>
             {/* Product Info */}
-            <div className="flex flex-col justify-left ml-3">
+            <div className="flex flex-col justify-left ml-3 gap-y-1">
                 {/* Product Name */}
-                <div className="text-lg">{product.name}</div>
+                <div className="text-xl font-semibold">{product.name}</div>
                 {/* Product Colour */}
-                <div>Colour: {product.color[0].name}</div>
+                <div><span className="font-semibold">Colour: </span>{product.color[0].name}</div>
                 {/* Product Size */}
-                <div>{product.size}</div>
+                <div><span className="font-semibold">Size: </span>{product.selectedSize}</div>
                 {/* Product Price */}
-                <div>${product.price}.00</div>
+                <div>${(product.price * product.quantity).toFixed(2)}</div>
                 {/* Quantity */}
-                <div>Quantity: 2</div>
+                <div><span className="font-semibold">Quantity: </span>{product.quantity}</div>
+                <p className="mt-4" onClick={() => removeFromCart(product.id, product.selectedSize)}>
+                    REMOVE
+                </p>
             </div>
         </div>
     )

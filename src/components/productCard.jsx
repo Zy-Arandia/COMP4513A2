@@ -5,7 +5,7 @@ const ProductCard = ({ product }) => {
     const navigate = useNavigate();
 
     const goToProductPage = () => {
-        navigate(`/product/${product.id}`, { state: { product } });
+        navigate(`/product/${product.id}`);
     };
 
     const minSize = product.sizes[0];

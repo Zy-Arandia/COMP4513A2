@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-const headerNav = () => {
+const headerNav = ({ isLoggedIn }) => {
     const navPages = [
         {
             "category": "HOME",
@@ -34,7 +34,15 @@ const headerNav = () => {
                 >
                     {page.category}
                 </Link>
+
             ))}
+            {!isLoggedIn ? null : (<Link to="/admin" 
+                className="
+                h-full
+                flex items-center justify-center 
+                p-2
+                text-lg 
+                border border-transparent border-b-2 hover:border-b-black">ADMIN</Link>)}
         </nav>
     )
 }
